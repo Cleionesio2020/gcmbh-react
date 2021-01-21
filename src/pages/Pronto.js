@@ -1,87 +1,87 @@
 import React, { useState } from "react";
-
 import Api from "../services/api";
 import { FaSearch } from "react-icons/fa";
 import "./pronto.css";
 
 function Pronto() {
-
   const data = [
     {
-      escala:
-      {
-        horaInicio: '06:00',
-        horaFim: '18:00',
-        escala: '12X36-D1',
+      escala: {
+        horaInicio: "06:00",
+        horaFim: "18:00",
+        escala: "12X36-D1"
       },
 
       nomeFuncional: "Cleionesio",
-      bm: '87134-X',
+      bm: "87134-X",
 
       pronto: {
-        tipo: ''
+        tipo: ""
       }
-
     },
     {
-      escala:
-      {
-        horaInicio: '06:30',
-        horaFim: '18:30',
-        escala: '12X36-D2',
+      escala: {
+        horaInicio: "06:30",
+        horaFim: "18:30",
+        escala: "12X36-D2"
       },
 
       nomeFuncional: "Amarildo",
-      bm: '87333-X',
+      bm: "87333-X",
       pronto: {
-        tipo: ''
+        tipo: ""
       }
     },
     {
-      escala:
-      {
-        horaInicio: '07:00',
-        horaFim: '19:00',
-        escala: '12X36-D1',
+      escala: {
+        horaInicio: "07:00",
+        horaFim: "19:00",
+        escala: "12X36-D1"
       },
 
       nomeFuncional: "Janaina",
-      bm: '23564-4',
+      bm: "23564-4",
       pronto: {
-        tipo: ''
+        tipo: ""
       }
     },
     {
-      escala:
-      {
-        horaInicio: '06:00',
-        horaFim: '18:00',
-        escala: '12X36-D1',
+      escala: {
+        horaInicio: "06:00",
+        horaFim: "18:00",
+        escala: "12X36-D1"
       },
 
       nomeFuncional: "Clodoaudo",
-      bm: '83568-X',
+      bm: "83568-X",
       pronto: {
-        tipo: ''
+        tipo: ""
       }
-    },
-  ]
+    }
+  ];
 
-  const [servidor, setServidor] = useState({
-
-    tipo: ''
-
+  const [pronto, setPronto] = useState({
+    horaInicio: "",
+    horaFim: "",
+    horaPrevistaInicio: "",
+    horaPrevistaFim: "",
+    obsPronto: "",
+    tipo: "",
+    verificado: "",
+    usuario: { id: "" },
+    servidor: { bm: "" }
   });
 
-  const [servidores, setServidores] = useState(data);
-  const [codLotacao, setCodLotacao] = useState("");
+  const [servidores, setServidores] = useState([]);
   const [bm, setBm] = useState("");
 
   function buscarPorBm(event) {
     event.preventDefault();
     Api.get(`/servidores_proprio/${bm}`)
       .then((resp) => {
-        setServidores(resp.data);
+        const data = resp.data;
+        data.proto = "";
+        setServidores(data);
       })
       .catch((error) => {
         console.log(error);
@@ -92,25 +92,16 @@ function Pronto() {
     event.preventDefault();
   }
 
-  const teste = (event,tipo) => {
-
-    
-
-    const a = servidores.map(item => {
+  const teste = (event, tipo) => {
+    const a = servidores.map((item) => {
+      return item;
       if (item.bm === event.target.value) {
-        item.pronto.tipo=tipo
+        setServidores(a);
       }
-      return(
-        item
-      )
-    })
+    });
 
-    
-    setServidores(a)
-    console.log(a)
-
-  }
-
+    console.log(a);
+  };
 
   return (
     <div>
@@ -120,30 +111,26 @@ function Pronto() {
         </div>
         <form>
           <div className="row">
-            <div className="col-sm-2">
-              <div className="form-row ">
-                <input
-                  className="form-control"
-                  type="text"
-                  name="bm"
-                  placeholder="Bm"
-                  size="5"
-                  onChange={(e) => setBm(e.target.value)}
-                />
+            <div className="col-sm-6">
+              <input
+                type="text"
+                name="bm"
+                placeholder="Bm"
+                size="5"
+                onChange={(e) => setBm(e.target.value)}
+              />
 
-              </div>
               <button className="btn" onClick={buscarPorBm}>
                 <FaSearch />
               </button>
             </div>
-            <div className="col-sm-2">
+            <div className="col-sm-6">
               <span>
                 <input
                   type="text"
                   name="cod"
                   size="5"
                   placeholder="Cod lotação"
-                  onChange={(e) => setCodLotacao(e.target.value)}
                 />
                 <button className="btn" onClick={buscarPorCodigo}>
                   <FaSearch />
@@ -179,13 +166,28 @@ function Pronto() {
                     <td>{item.escala.horaInicio}</td>
                     <td>{item.escala.horaFim}</td>
                     <td>
-                      <input type="checkbox" value={item.bm} checked={item.pronto.tipo === 'p'} onChange={(e)=>teste(e,"p")} />
+                      <input
+                        type="checkbox"
+                        value={item.bm}
+                        checked={item.pronto === "p"}
+                        onChange={(e) => teste(e, "p")}
+                      />
                     </td>
                     <td>
-                      <input type="checkbox" value={item.bm} checked={item.pronto.tipo === 'f'} onChange={(e)=>teste(e,"f")} />
+                      <input
+                        value={item.bm}
+                        type="checkbox"
+                        checked={item.pronto === "f"}
+                        onChange={(e) => teste(e, "f")}
+                      />
                     </td>
                     <td>
-                      <input type="checkbox" value={item.bm} checked={item.pronto.tipo === 'd'} onChange={(e)=>teste(e,"d")} />
+                      <input
+                        type="checkbox"
+                        value={item.bm}
+                        checked={item.pronto === "d"}
+                        onChange={(e) => teste(e, "d")}
+                      />
                     </td>
                   </tr>
                 );

@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 export default function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <Link to="/" className="navbar-brand">
-        Meu Sistema
+      <Link className="navbar-brand" to="/">
+        {" "}
       </Link>
+      Navbar
       <button
         className="navbar-toggler"
         type="button"
@@ -18,7 +19,6 @@ export default function NavBar() {
       >
         <span className="navbar-toggler-icon"></span>
       </button>
-
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
