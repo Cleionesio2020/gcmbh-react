@@ -80,8 +80,8 @@ function Pronto() {
     Api.get(`/servidores_proprio/${bm}`)
       .then((resp) => {
         const data = resp.data;
-        data.proto = "";
         setServidores(data);
+        console.log(servidores);
       })
       .catch((error) => {
         console.log(error);
@@ -92,26 +92,30 @@ function Pronto() {
     event.preventDefault();
   }
 
-  const teste = (event, tipo) => {
-    const a = servidores.map((item) => {
-      return item;
-      if (item.bm === event.target.value) {
-        setServidores(a);
-      }
-    });
-
-    console.log(a);
+  const teste = (index, tipo) => {
+    const newServidores = [...servidores];
+    if (servidores[index].pronto === undefined) {
+      servidores[index].pronto = tipo;
+    } else {
+      servidores[index].pronto = undefined;
+    }
+    setServidores(newServidores);
   };
 
   return (
     <div>
-      <div style={{ padding: "5px", backgroundColor: "#F5F5F5" }}>
-        <div className="card-title">
-          <h5>Registro de Pronto - {new Date().toLocaleString("pt-BR")}</h5>
-        </div>
+      <div
+        className="container"
+        style={{
+          marginBottom: "10px",
+          backgroundColor: "#3333",
+          padding: "10px",
+          borderRadius: "5px"
+        }}
+      >
         <form>
-          <div className="row">
-            <div className="col-sm-6">
+          <div className="row justify-content-center">
+            <div className="col-sm-4 ">
               <input
                 type="text"
                 name="bm"
@@ -124,7 +128,7 @@ function Pronto() {
                 <FaSearch />
               </button>
             </div>
-            <div className="col-sm-6">
+            <div className="col-sm-4">
               <span>
                 <input
                   type="text"
@@ -138,7 +142,6 @@ function Pronto() {
               </span>
             </div>
           </div>
-          <br />
         </form>
       </div>
       <div className="overflow-auto" style={{ height: 400 }}>
@@ -157,9 +160,12 @@ function Pronto() {
               </tr>
             </thead>
             <tbody>
-              {servidores.map((item) => {
+              {servidores.map((item, index) => {
                 return (
-                  <tr>
+                  <tr
+                    key={index}
+                    className={item.prontos.length > 0 ? "passou-pronto" : ""}
+                  >
                     <td>{item.nomeFuncional}</td>
                     <td>{item.bm}</td>
                     <td>{item.escala.escala}</td>
@@ -170,7 +176,7 @@ function Pronto() {
                         type="checkbox"
                         value={item.bm}
                         checked={item.pronto === "p"}
-                        onChange={(e) => teste(e, "p")}
+                        onChange={() => teste(index, "p")}
                       />
                     </td>
                     <td>
@@ -178,7 +184,7 @@ function Pronto() {
                         value={item.bm}
                         type="checkbox"
                         checked={item.pronto === "f"}
-                        onChange={(e) => teste(e, "f")}
+                        onChange={() => teste(index, "f")}
                       />
                     </td>
                     <td>
@@ -186,7 +192,7 @@ function Pronto() {
                         type="checkbox"
                         value={item.bm}
                         checked={item.pronto === "d"}
-                        onChange={(e) => teste(e, "d")}
+                        onChange={() => teste(index, "d")}
                       />
                     </td>
                   </tr>
