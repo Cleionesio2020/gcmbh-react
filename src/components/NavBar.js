@@ -50,6 +50,12 @@ export default function NavBar() {
               Escala
             </Link>
           </li>
+
+          <li className="nav-item">
+            <Link to="/Banco-Hora" className="nav-link">
+              Banco de Horas
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>

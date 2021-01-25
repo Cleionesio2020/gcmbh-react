@@ -10,6 +10,7 @@ import Pronto from "../pages/Pronto";
 import Lotacao from "../pages/Lotacao";
 import RelatorioPronto from "../pages/RelatorioPronto";
 import EscalaHome from "../pages/EscalaHome";
+import BancoHora from "../pages/Banco-hora";
 
 export default function Rotas() {
   return (
@@ -22,6 +23,7 @@ export default function Rotas() {
           <Route path="/Admin" element={<Admin />} />
           <Route path="/Admin/:id" element={<Admin />} />
           <Route path="/Pronto" element={<Pronto />} />
+          <Route path="/Banco-Hora" element={<BancoHora />} />
           <Route element={<p>Pagina não encontrada</p>} />
 
           <Route path="Escala" element={<Escala />}>
