@@ -3,11 +3,14 @@ import { Link } from "react-router-dom";
 
 export default function NavBar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav
+      className="navbar navbar-expand-lg navbar-light bg-light"
+      style={{ boxShadow: "0px 4px 3px -4px rgba(0,0,0,0.33)" }}
+    >
       <Link className="navbar-brand" to="/">
         {" "}
       </Link>
-      Navbar
+      GCMBH
       <button
         className="navbar-toggler"
         type="button"

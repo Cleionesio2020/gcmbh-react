@@ -1,53 +1,61 @@
-import React, { Component, useState } from 'react'
-import AsyncSelect from 'react-select'
-import Api from '../services/api'
+import React, { useState } from "react";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import Api from "../services/api";
 
-export default function SelectServidorNome() {
-  
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
+function SelectServidorNome({ selecionaValor }) {
+  let items = [];
 
-
-function buscaDados(){
-  Api.get(`/servidores_nomef/${selecionado}`)
-  .then(response=>{
-   
-    
-    const places = response.data.map((item) => {
-      return ({
-          label: item.nomeCompleto,
-          value: item.nomeCompleto,
+  const carregaDados = (valor) => {
+    Api.get(`/servidores_nomef?param=${valor}`).then((response) => {
+      response.data.map((item) => {
+        if (item.bm) {
+          const novo = { id: item.bm, name: item.nomeCompleto };
+          items.push(novo);
+        }
       });
-  });
+    });
+  };
 
- 
+  const handleOnSearch = (string, results) => {
+    // onSearch will have as the first callback parameter
+    // the string searched and for the second the results.
 
+    carregaDados(string);
+  };
 
-   
-  })
+  const handleOnSelect = (item) => {
+    selecionaValor(item);
+  };
 
-}
-
-
-  const[selecionado,setSelecionado]=useState("");
-
-function handleInputChange(valor){
-  console.log(valor)
-  setSelecionado(valor)
-}
-
-function alerta(){
-  console.log("fsdfsdfsdf")
-}
+  const handleOnFocus = () => {
+    //console.log("Focused");
+  };
 
   return (
-    <AsyncSelect 
-    loadOptions={buscaDados} 
-    onChange={valor=>handleInputChange(valor)}
-   
-    />
-  )
+    <div>
+      <header>
+        <div>
+          <ReactSearchAutocomplete
+            items={items}
+            onSearch={handleOnSearch}
+            onSelect={handleOnSelect}
+            onFocus={handleOnFocus}
+            autoFocus
+            showIcon={true}
+            styling={{
+              height: "34px",
+              borderRadius: "4px",
+              backgroundColor: "white",
+              boxShadow: "none",
+              hoverBackgroundColor: "#ccc",
+              width: "35px",
+              zIndex: "1"
+            }}
+          />
+        </div>
+      </header>
+    </div>
+  );
 }
+
+export default SelectServidorNome;
