@@ -6,10 +6,6 @@ import './escala.css'
 
 
 function Escala() {
-  let navigate = useNavigate();
-  function navegar() {
-    navigate("/")
-  }
   return (
     <>
       <div className="content" style={{ marginTop: "20px" }} >

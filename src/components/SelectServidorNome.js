@@ -6,7 +6,7 @@ function SelectServidorNome({ selecionaValor }) {
   let items = [];
 
   const carregaDados = (valor) => {
-    Api.get(`/servidores_nomef?param=${valor}`).then((response) => {
+    Api.get(`/busca_servidor?param=${valor}`).then((response) => {
       response.data.map((item) => {
         if (item.bm) {
           const novo = { id: item.bm, name: item.nomeCompleto };

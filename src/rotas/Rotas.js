@@ -10,7 +10,10 @@ import Pronto from "../pages/Pronto";
 import Lotacao from "../pages/Lotacao";
 import RelatorioPronto from "../pages/RelatorioPronto";
 import EscalaHome from "../pages/EscalaHome";
-import BancoHora from "../pages/Banco-hora";
+import BancoHora from "../pages/banco_hora/Banco-hora";
+import BancoHome from "../pages/banco_hora/BancoHome";
+import BancoNovoLancamento from "../pages/banco_hora/BancoNovoLancamento"
+import Footer from "../components/Footer";
 
 export default function Rotas() {
   return (
@@ -23,17 +26,25 @@ export default function Rotas() {
           <Route path="/Admin" element={<Admin />} />
           <Route path="/Admin/:id" element={<Admin />} />
           <Route path="/Pronto" element={<Pronto />} />
-          <Route path="/Banco-Hora" element={<BancoHora />} />
+
+          <Route path="/Banco-Hora" element={<BancoHora />} >
+            <Route path="/" element={<BancoNovoLancamento />} />
+            <Route path="/novolancamento" element={<BancoHome/>} />
+          </Route>
+
           <Route element={<p>Pagina não encontrada</p>} />
 
-          <Route path="Escala" element={<Escala />}>
+
+          <Route path="/Escala" element={<Escala />}>
             <Route path="/" element={<EscalaHome />} />
-            <Route path="RelatorioPronto" element={<RelatorioPronto />} />
-            <Route path="Lotacao" element={ <Lotacao/>} />
-            <Route path="Teste" element={<p>Teste</p>} />
+            <Route path="/RelatorioPronto" element={<RelatorioPronto />} />
+            <Route path="/Lotacao" element={<Lotacao />} />
+            <Route path="/Teste" element={<p>Teste</p>} />
           </Route>
+
         </Routes>
       </div>
+      <Footer />
     </Router>
   );
 }
