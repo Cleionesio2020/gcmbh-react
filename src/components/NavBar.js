@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import "./navBar.css"
+import { Link,NavLink } from "react-router-dom";
 
 export default function NavBar() {
   return (
@@ -25,39 +26,34 @@ export default function NavBar() {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <Link to="/" className="nav-link">
+            <NavLink to="/" className="nav-link" activeClassName="active">
               Home
-            </Link>
+            </NavLink>
           </li>
 
           <li className="nav-item">
-            <Link to="/Pronto" className="nav-link">
+            <NavLink to="/Pronto" className="nav-link" activeClassName="active">
               Pronto
-            </Link>
+            </NavLink>
           </li>
 
           <li className="nav-item">
-            <Link to="/Sobre" className="nav-link">
-              Sobre
-            </Link>
+            <NavLink to={"/Lotacao"  } className="nav-link" activeClassName="active">
+              Lotacao
+            </NavLink>
+          </li>
+
+
+          <li className="nav-item">
+            <NavLink to="/Servidor" className="nav-link" activeClassName="active">
+              Servidores
+            </NavLink>
           </li>
 
           <li className="nav-item">
-            <Link to="/Admin" className="nav-link">
-              Admin
-            </Link>
-          </li>
-
-          <li className="nav-item">
-            <Link to="/Escala" className="nav-link">
-              Escala
-            </Link>
-          </li>
-
-          <li className="nav-item">
-            <Link to="/Banco-Hora" className="nav-link">
+            <NavLink to="/Banco-Hora" className="nav-link" activeClassName="active">
               Banco de Horas
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </div>

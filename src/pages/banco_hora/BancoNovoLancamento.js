@@ -1,21 +1,32 @@
 import React, { useEffect, useState } from "react";
 import Api from "../../services/api";
-import { Container } from "react-bootstrap";
-import Table from "react-bootstrap/Table";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit,FaSearch, } from "react-icons/fa";
+import "./bancoHora.css"
 function BancoNovoLancamento() {
   const [lancamentos, setLancamentos] = useState([]);
+  const[param, setParam]=useState("");
 
-  useEffect(() => {
-    Api.get(`/banco-horas/87134-x`).then((resp) => {
+  const buscar = () => {
+    Api.get(`/banco-horas/${param}`).then((resp) => {
       setLancamentos(resp.data);
     });
-  }, []);
+  }
 
   return (
-    <Container style={{ marginTop: "30px" }}>
-      <div>Servidor: Cleionesio Servidor</div>
-      <Table
+    <div className="container" style={{ marginTop: "30px"}}>
+      <div className="row" style={{marginBottom:"10px", marginLeft:"3px"}}>
+        <div classname="col-md-2">
+          <input type="text" class="form-control" placeholder="BM" onChange={(e)=>setParam(e.target.value)}/>
+        </div>
+        <div className="col-sm-2 no-gutters" >
+          <button className="btn btn-secondary" onClick={buscar}><FaSearch size=" 15"/>{" "}buscar</button>
+        </div>
+        <div className="col">
+          <label>{lancamentos.length>0 && lancamentos[0].servidor.nomeFuncional}</label>
+        </div>
+      </div>
+
+      <table className="table"
         striped
         bordered
         hover
@@ -45,8 +56,8 @@ function BancoNovoLancamento() {
             );
           })}
         </tbody>
-      </Table>
-    </Container>
+      </table>
+    </div>
   );
 }
 

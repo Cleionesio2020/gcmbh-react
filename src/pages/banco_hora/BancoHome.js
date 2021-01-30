@@ -143,14 +143,9 @@ function BancoHome() {
                 className="btn btn-primary"
                 type="submit"
               >
-                Salvar
+                Salvar lançamento
               </button>
-              <button
-                className="btn btn-primary"
-                type="submit"
-              >
-                Teste
-              </button>
+              
             </div>
           </div>
         </form>

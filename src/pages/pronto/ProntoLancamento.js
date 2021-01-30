@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Api from "../services/api";
+import Api from "../../services/api";
 import { FaSearch } from "react-icons/fa";
 import "./pronto.css";
 
-function Pronto() {
+function ProntoLancamento() {
   const data = [
     {
       escala: {
@@ -211,4 +211,4 @@ function Pronto() {
   );
 }
 
-export default Pronto;
+export default ProntoLancamento;

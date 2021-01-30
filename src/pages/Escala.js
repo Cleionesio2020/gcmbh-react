@@ -19,9 +19,6 @@ function Escala() {
           </li>
 
           <li className="nav-item">
-            <Link className="nav-link" id="profile-tab" data-toggle="tab" to="Lotacao" role="tab" aria-controls="profile" aria-selected="false">Lotacao</Link>
-          </li>
-          <li className="nav-item">
             <Link className="nav-link" id="contact-tab" data-toggle="tab" to="Teste" role="tab" aria-controls="contact" aria-selected="false">Teste</Link>
           </li>
         </ul>

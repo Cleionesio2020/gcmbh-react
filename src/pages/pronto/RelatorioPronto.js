@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from '../services/api'
+import axios from '../../services/api'
 import { FaRegEdit, FaTrashAlt } from 'react-icons/fa';
 
 function RelatorioPronto() {

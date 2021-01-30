@@ -1,0 +1,13 @@
+.table  tr td {
+    padding: 4px;
+}
+
+.table tr th {
+    padding: 4px;
+}
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+  padding-left: 3px;
+}  
+  
