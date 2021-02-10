@@ -30,7 +30,7 @@ function LotacaoHome() {
           <input type="text" class="form-control" placeholder="Cod lotação" onChange={(e) => setCodProprio(e.target.value)} />
         </div>
         <div className="col-sm-3 no-gutters" >
-          <nutton className="btn btn-secondary" onClick={buscarPorCodProprio}><FaSearch size="15" />&nbsp;&nbsp;buscar</nutton>
+          <button className="btn btn-secondary" onClick={buscarPorCodProprio}><FaSearch size="15" />&nbsp;&nbsp;buscar</button>
         </div>
         <div className="col-sm-6 no-gutters" style={{textAlign: "right", padding:0 }} >
           <Link className="btn btn-primary" to="LotacaoNova" ><span style={{ display: "flex", alignItems: "center" }}><FaPlus /> &nbsp; Adicionar Novo </span></Link>

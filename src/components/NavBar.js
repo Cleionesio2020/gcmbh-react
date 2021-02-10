@@ -8,7 +8,6 @@ export default function NavBar() {
       style={{ boxShadow: "0px 4px 3px -4px rgba(0,0,0,0.33)" }}
     >
       <Link className="navbar-brand" style={{ marginRight: '5px' }} to="/">
-
         GCMBH
       </Link>
       <button
