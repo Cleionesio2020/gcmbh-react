@@ -1,17 +1,16 @@
 import React from "react";
 import "./navBar.css"
-import { Link,NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function NavBar() {
   return (
-    <nav
-      className="navbar navbar-expand-lg navbar-light bg-light"
+    <nav className="navbar navbar-expand-lg navbar-light bg-light"
       style={{ boxShadow: "0px 4px 3px -4px rgba(0,0,0,0.33)" }}
     >
-      <Link className="navbar-brand" to="/">
-        {" "}
+      <Link className="navbar-brand" style={{ marginRight: '5px' }} to="/">
+
+        GCMBH
       </Link>
-      GCMBH
       <button
         className="navbar-toggler"
         type="button"
@@ -25,9 +24,10 @@ export default function NavBar() {
       </button>
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
+
           <li className="nav-item">
-            <NavLink to="/" className="nav-link" activeClassName="active">
-              Home
+            <NavLink to="/Protocolo" className="nav-link" activeClassName="active">
+              Protocolo
             </NavLink>
           </li>
 
@@ -38,7 +38,7 @@ export default function NavBar() {
           </li>
 
           <li className="nav-item">
-            <NavLink to={"/Lotacao"  } className="nav-link" activeClassName="active">
+            <NavLink to={"/Lotacao"} className="nav-link" activeClassName="active">
               Lotacao
             </NavLink>
           </li>

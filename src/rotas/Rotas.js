@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import NavBar from "../components/NavBar";
 import Home from "../pages/Home";
-import Sobre from "../pages/Sobre";
-import Admin from "../pages/Admin";
 import Escala from "../pages/Escala";
 
 import Pronto from "../pages/pronto/Pronto";
@@ -27,18 +25,25 @@ import ServidorEscala from "../pages/servidor/ServidorEscala";
 import ServidorLotacao from "../pages/servidor/ServidorLotacao";
 
 import Footer from "../components/Footer";
+import Protocolo from "../pages/protocolo/protocolo";
+import ProtocoloLista from "../pages/protocolo/protocolo-lista";
+import ProtocoloNovo from "../pages/protocolo/protocolo-novo";
+import Despacho from "../pages/protocolo/despacho";
 
 export default function Rotas() {
   return (
     <Router>
       <NavBar />
-      <div className="container" style={{ marginTop: "20px", minHeight:"700px" }}>
+      <div className="container" style={{ marginTop: "20px", minHeight: "700px" }}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Sobre" element={<Sobre />} />
-          <Route path="/Admin" element={<Admin />} />
-          <Route path="/Admin/:id" element={<Admin />} />
 
+        <Route path="/" element={<Home />} />
+
+          <Route path="/Protocolo" element={<Protocolo />}>
+            <Route path="/" element={<ProtocoloLista />} />
+            <Route path="/:id" element={<ProtocoloNovo/>} />
+            <Route path="/Despacho" element={<Despacho />} />
+          </Route>
 
           <Route path="/Pronto" element={<Pronto />} >
             <Route path="/" element={<ProntoLancamento />} />
@@ -62,7 +67,6 @@ export default function Rotas() {
 
           <Route path="/Escala" element={<Escala />}>
             <Route path="/" element={<EscalaHome />} />
-
           </Route>
 
           <Route path="/Lotacao" element={<Lotacao />}>

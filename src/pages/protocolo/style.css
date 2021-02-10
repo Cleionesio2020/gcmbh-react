@@ -1,0 +1,35 @@
+.jumbotron{
+    background-color: rgb(240, 245, 247);
+    margin-top: 20px;
+    padding-top:20px;
+}
+
+.jumbotron h5{
+    background-color: rgb(153, 175, 184);
+   padding: 5px;
+   color: rgb(255, 255, 255);
+   font-size: 14px;
+   border-radius: 4px;
+}
+
+.empresa{
+    background-color: rgb(225, 233, 236);
+    padding: 20px;
+}
+.pessoa{
+    background-color: rgb(225, 233, 236);
+    padding: 20px;
+    margin-bottom:5px;
+}
+.control-label{
+    font-size: 13px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.top-table{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}

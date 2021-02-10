@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaHome,FaAdobe,FaClock,FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Api from "../../services/api";
 
 function ServidorHome() {
@@ -42,7 +42,10 @@ function ServidorHome() {
                     <td>GCD II</td>
                     <td><div 
                     style={{display:"flex", width:"240px",justifyContent:"space-between",flexDirection:"row",alignItems:"center"}}>
-                      <div><a href="#"><FaClock/>-Escala</a></div> <div><a href="#"><FaHome/>-Lotação</a></div> <div><a href="#"><FaAdobe/>-Ficha</a></div>
+                      <div>
+                        <Link to="ServidorEscala"><FaClock/>-Escala</Link></div> 
+                        <div><a href="#"><FaHome/>-Lotação</a></div> 
+                        <div><a href="#"><FaAdobe/>-Ficha</a></div>
                       </div>
                       </td>
                   </tr>
