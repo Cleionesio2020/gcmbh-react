@@ -1,20 +1,47 @@
 import React from "react";
-import {
-  Link, Outlet
-} from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import Api from "../../services/api";
+import moment from 'moment';
+import { FaList } from "react-icons/fa";
+
+
 
 function ProtocoloNovo() {
-  return (
-    <div class="jumbotron">
+  let  navigate = useNavigate();
+  const datahoje = moment();
 
-      <h4>Registro novo protocolo</h4>
-      <form>
+  const { register, handleSubmit, watch, errors } = useForm();
+  
+  const onSubmit = data => {
+    const usuario={id:1}
+    const dataAlterada = {...data, usuario}
+    console.log(dataAlterada)
+    Api.post('/protocolo',dataAlterada).then(resp=>{
+        console.log("Salvo com Sucesso>>>>>"+resp.data)
+    })
+    .catch(erro=>{
+      console.log(erro)
+    })
+  }
+
+let { id } =  useParams()
+
+
+  return (
+    <div className="jumbotron">
+
+<div className='top-table' >
+        <div><h4>Adicionar novo protocolo</h4></div>
+        <button className="btn btn-secondary" onClick={()=>navigate('/Protocolo')}> <FaList size="15" />&nbsp;&nbsp;Voltar lista</button>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="empresa">
-          <div className="row">
+          <div className="row" >
             <div className="col-sm-4">
-            <label  className="control-label">Tipo de protocolo</label>
-              <select className="form-control" name="tipo_documento" >
-                <option value="Selecione uma ...">Selecione uma ...</option>
+              <label className="control-label">Tipo de protocolo</label>
+              <select className="form-control" name="tipoProtocolo" ref={register({required: true})}>
+                <option value="" >Selecione uma ...</option>
                 <option value="ata">Ata</option>
                 <option value="atestado">Atestado médico</option>
                 <option value="atestadoComparecimento">Atestado de Comparecimento</option>
@@ -35,15 +62,18 @@ function ProtocoloNovo() {
                 <option value="relatório">Relatório</option>
                 <option value="solicitaçao">Solicitação</option>
               </select>
+              {errors.tipoProtocolo && <small className="error">Este valor é requerido</small>}
             </div>
+          
 
             <div className="col-sm">
               <label for="data_prot" className="control-label">Data Protocolo</label>
-              <input id="data_prot" className="form-control input-md" name="data_protocolo" type="date" readonly />
+              <input id="data_prot" className="form-control input-md" value={datahoje.format('YYYY-MM-DDTHH:mm')} 
+              name="dataProtocolo" type="datetime-local"  readOnly ref={register} />
             </div>
             <div className="col-sm">
               <label for="data_doc" className="control-label">Data do Documento</label>
-              <input id="data_doc" className="form-control" name="data_documento" type="date" />
+              <input id="data_doc" className="form-control" name="dataDocumento" type="date" ref={register} />
             </div>
           </div>
         </div>
@@ -54,18 +84,18 @@ function ProtocoloNovo() {
 
           <div className="row">
             <div className="col-sm-2">
-              <label class="control-label" for="bm_origem">BM / Matrícula</label>
-              <input id="bm_origem" class="form-control input-md" type="text" name="bm_origem" />
+              <label className="control-label" for="bm_origem">BM / Matrícula</label>
+              <input id="bm_origem" className="form-control input-md" type="text" name="servidorOrigem.bm" ref={register} />
             </div>
 
-            <div class="col-sm-5">
-              <label for="nome" class="control-label">Nome Funcional </label>
-              <input id="nome" class="form-control input-md" type="text" name="bm_origem" />
+            <div className="col-sm-5">
+              <label for="nome" className="control-label">Nome Funcional </label>
+              <input id="nome" className="form-control input-md" type="text" name="servidorOrigem.nomeFuncional" ref={register} />
             </div>
 
             <div className="col-sm-5">
               <label for="ger_ori" className="control-label">Gerência / Setor Origem</label>
-              <input id="ger_ori" className="form-control" type="text" name="secretaria_origem" />
+              <input id="ger_ori" className="form-control" type="text" name="setorOrigem" ref={register}/>
             </div>
           </div>
         </div>
@@ -77,18 +107,18 @@ function ProtocoloNovo() {
 
           <div className="row">
             <div className="col-sm-2">
-              <label class="control-label" for="bm_origem">BM / Matrícula</label>
-              <input id="bm_origem" class="form-control input-md" type="text" name="bm_origem" />
-            </div>
-
-            <div class="col-sm-5">
-              <label for="nome" class="control-label">Nome Funcional </label>
-              <input id="nome" class="form-control input-md" type="text" name="bm_origem" />
+              <label className="control-label" for="bm_dest">BM / Matrícula</label>
+              <input id="bm_dest" className="form-control input-md" type="text" name="servidorDestino.bm" ref={register} />
             </div>
 
             <div className="col-sm-5">
-              <label for="ger_ori" className="control-label">Gerência / Setor Destino</label>
-              <input id="ger_ori" className="form-control" type="text" name="secretaria_origem" />
+              <label for="nome_dest" className="control-label">Nome Funcional </label>
+              <input id="nome_dest" className="form-control input-md" type="text" name="servidorDestino.nomefuncional" ref={register} />
+            </div>
+
+            <div className="col-sm-5">
+              <label for="ger_dest" className="control-label">Gerência / Setor Destino</label>
+              <input id="ger_dest" className="form-control" type="text" name="setorDestino" ref={register} />
             </div>
           </div>
         </div>
@@ -96,21 +126,21 @@ function ProtocoloNovo() {
         <div className="empresa">
           <div className="row">
             <div className="col-sm-12">
-              <label for="assunto" className="control-label">Assunto</label>
-              <input id="assunto" className="form-control" type="text" name="assunto" />
-            </div>
+              <label for="assunto" className="control-label">Assunto (Resumo)</label>
+              <input id="assunto" className="form-control" type="text" name="assunto" ref={ register}   />       
+              </div>
 
             <div className="col-sm-12">
               <label for="prot_por" className="control-label">Protocolado por </label>
-              <input id="prot_por" placeholder="" className="form-control" type="text" name="usuario_nome" />
+              <input id="prot_por" placeholder="" className="form-control" type="text" name="usuario.nome" ref={register}/>
             </div>
           </div>
         </div>
 
         <hr />
-        <button id="Cadastrar" name="Cadastrar" className="btn btn-success" type="Submit"> Salvar </button>
+        <button  name="Cadastrar" className="btn btn-success" type="Submit"> Salvar </button>
         &emsp;
-        <button id="Cancelar" name="Cancelar" className="btn btn-danger" type="Reset">Cancelar</button>
+        <button name="Cancelar" className="btn btn-danger" type="Reset">Cancelar</button>
 
       </form>
 

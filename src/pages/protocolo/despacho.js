@@ -1,11 +1,18 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { FaList } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 function Despacho() {
+    let navigate = useNavigate();
     return (
 
         <div className="jumbotron">
-            <h4>Registro Despacho</h4>
+
+            <div className='top-table' >
+                <div><h4>Registrar Despacho</h4></div>
+                <button className="btn btn-secondary" onClick={() => navigate('/Protocolo')}> <FaList size="15" />&nbsp;&nbsp;Voltar lista</button>
+            </div>
+
             <form>
                 <div className="empresa">
                     <div className="row">

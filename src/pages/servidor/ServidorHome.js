@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { FaHome,FaAdobe,FaClock,FaSearch } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Api from "../../services/api";
 
 function ServidorHome() {
   const[ servidor, setServidor]=useState([])
   function buscarServidor(){
+    
 
   }
 

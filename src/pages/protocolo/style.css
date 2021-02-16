@@ -33,3 +33,25 @@
     justify-content: space-between;
     margin-bottom: 5px;
 }
+.input-person{
+    border: 1px solid rgba(159, 182, 216, 0.8);
+    border-radius: 4px;
+    padding: 3px;
+    
+}
+.table tbody{
+    font-size: 13px;
+}
+.btn-icon{
+    border: 0;background-color: white;border-radius: 4px;
+}
+
+.bloco-card{
+    background-color: white;margin: 10px 0 10px 0;padding:10px; border-radius: 7px;color: #333;font-size: 14px;
+}
+
+.bloco-card label{
+    font-size: 12px;font-weight: bold;color:black
+
+}
+hr{padding: 0px;margin: 5px; color: azure;}

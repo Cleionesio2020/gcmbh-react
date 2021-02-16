@@ -29,6 +29,7 @@ import Protocolo from "../pages/protocolo/protocolo";
 import ProtocoloLista from "../pages/protocolo/protocolo-lista";
 import ProtocoloNovo from "../pages/protocolo/protocolo-novo";
 import Despacho from "../pages/protocolo/despacho";
+import ProtocoloVerDespacho from "../pages/protocolo/protocolo-ver-despacho";
 
 export default function Rotas() {
   return (
@@ -41,7 +42,9 @@ export default function Rotas() {
 
           <Route path="/Protocolo" element={<Protocolo />}>
             <Route path="/" element={<ProtocoloLista />} />
-            <Route path="/:id" element={<ProtocoloNovo/>} />
+            <Route path="/novo_protocolo" element={<ProtocoloNovo/>} />
+            <Route path="/novo_protocolo/:id" element={<ProtocoloNovo/>} />
+            <Route path="/protocolo_ver_despacho/:id" element={<ProtocoloVerDespacho />} />
             <Route path="/Despacho" element={<Despacho />} />
           </Route>
 
