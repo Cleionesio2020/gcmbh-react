@@ -33,7 +33,7 @@ import ProtocoloVerDespacho from "../pages/protocolo/protocolo-ver-despacho";
 
 export default function Rotas() {
   return (
-    <Router>
+    <Router basename='/site-react'>
       <NavBar />
       <div className="container" style={{ marginTop: "20px", minHeight: "700px" }}>
         <Routes>

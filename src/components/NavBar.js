@@ -1,5 +1,6 @@
 import React from "react";
 import "./navBar.css"
+import logo from "../assets/images/icon.png"
 import { Link, NavLink } from "react-router-dom";
 
 export default function NavBar() {
@@ -8,7 +9,7 @@ export default function NavBar() {
       style={{ boxShadow: "0px 4px 3px -4px rgba(0,0,0,0.33)" }}
     >
       <Link className="navbar-brand" style={{ marginRight: '5px' }} to="/">
-        GCMBH
+      <div className="logo"><img src={logo}  alt="logo" width="35" />&nbsp; GCMBH</div>
       </Link>
       <button
         className="navbar-toggler"

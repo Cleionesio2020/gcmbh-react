@@ -3,3 +3,14 @@
     border-radius: 4px;
 
 }
+
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:white;
+    border:1px solid #f1f3f5;
+    padding:5px;
+    border-radius: 5px;
+    color: #115b8b;
+}
