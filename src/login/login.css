@@ -10,9 +10,9 @@ html {
   background-repeat: no-repeat;
 }
 
-.card-container.card {
+.card-container {
   max-width: 350px;
-  padding: 40px 40px;
+  padding: 30px 30px;
 }
 
 .btn {
@@ -40,8 +40,8 @@ html {
 }
 
 .profile-img-card {
-  width: 96px;
-  height: 96px;
+  width: 80px;
+  height: 80px;
   margin: 0 auto 10px;
   display: block;
   -moz-border-radius: 50%;

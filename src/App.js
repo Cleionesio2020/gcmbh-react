@@ -8,7 +8,7 @@ function App() {
   const {logado} = useContext(Context)
 
   console.log(logado)
-  
+   
 
   return (
     //se estiver logado renderiza as rotas  da aplicacao, se naa, renderiza login

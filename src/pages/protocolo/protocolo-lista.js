@@ -16,9 +16,10 @@ function ProtocoloLista() {
         })
         .catch((error) => {
           console.log(error);
-        });
+        }); 
+        carregar();
     }
-    carregar();
+   
   }, []);
 
   function handleEdit(idProtocolo){
