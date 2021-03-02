@@ -16,9 +16,8 @@ function Home() {
     
   }
 
-  async function setObservacao(){
-    await setPronto({...pronto, obsPronto:obsProntoTemp})
-    
+  function setObservacao(){
+    setPronto({...pronto, obsPronto:obsProntoTemp})
     handleClose();
     console.log(pronto);
   }
