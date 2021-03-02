@@ -1,34 +1,13 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import moment from "moment";
 import ModalGlobal from "../components/Modal";
 import Alert from "../components/Alert"
 import Api from "../services/api"
 
 function Home() {
-  ///modal
-  const [show, setShow] = useState(false);
-  const [obsProntoTemp, setObsprontoTemp] = useState(null);
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
-  
-  const handleObservacao=(event)=>{
-    setObsprontoTemp(event.target.value) ;
-    
-  }
-
-  function setObservacao(){
-    setPronto({...pronto, obsPronto:obsProntoTemp})
-    handleClose();
-    console.log(pronto);
-  }
-
-  //modal fim
-
-
   const [agora, setAgora] = useState(
     moment(new Date())
   )
-
   const [servidor, setServidor] = useState({
     bm: "",
     nomeFuncional: "",
@@ -42,6 +21,7 @@ function Home() {
       usuario: { id: 0 },
     }]
   });
+
   const [pronto, setPronto] = useState({
     data: agora.format("YYYY-MM-DD HH:mm"),
     obsPronto: "",
@@ -49,8 +29,30 @@ function Home() {
     tipoPronto: "INICIO_SERVICO", //INICIO_SERVICO, FIM_SERVICO, INICIO_INTERVALO, FIM_INTERVALO
     usuario: { id: 1 },
     servidor: { bm: "87134-X" }
-
   })
+
+  ///modal**************************************************************************************
+  const [show, setShow] = useState(false);
+  const [obsProntoTemp, setObsprontoTemp] = useState("");
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+  
+  const handleObservacao=(event)=>{
+    setObsprontoTemp(event.target.value) ;
+  }
+
+  useEffect(() => {
+    console.log('Do something after counter has changed');
+    console.log(pronto);
+ }, [pronto]);
+ 
+  function setObservacao(){
+    setPronto(  {...pronto, obsPronto:obsProntoTemp})
+    console.log(pronto);
+    handleClose();
+  }
+
+  //modal fim ********************************************************************************
 
   function handleServidorChange(event) {
     setServidor({ ...servidor, bm: event.target.value })
@@ -109,16 +111,11 @@ function Home() {
             <p><b>Escala: </b>{servidor.escala.escala} </p>
             <p><b>Início: </b>{servidor.escala.horaInicio} </p>
             <p><b>Fim: </b>{servidor.escala.horaFim} </p>
-            <button className="btn btn-primary" onClick={handlePassarPronto}>
+            <button className="btn btn-primary" onClick={handleShow}>
               Pronto Serviço
             </button>
-            &nbsp;&nbsp;
-            <button className="btn btn-danger" onClick={handleShow} >
-              Pronto com observação
-            </button>
-
+            
             <p />
-
 
             <table className="table table-sm" style={{ fontSize: "12px" }}>
               <thead>

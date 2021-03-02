@@ -19,13 +19,14 @@ export default function ModalGlobal(props) {
           <textarea className="form-control" onChange={props.handleObservacao}></textarea>
         </Modal.Body>
        
-        <Modal.Footer>
+        <Modal.Footer> 
+          <button className="btn btn-danger" onClick={props.setObservacao}>
+            Ok confirmar
+          </button>
           <button className="btn btn-secondary" onClick={props.handleClose}>
             Sair
           </button>
-          <button className="btn btn-primary" onClick={props.setObservacao}>
-            Confirmar o pronto
-          </button>
+         
         </Modal.Footer>
       </Modal>
 
