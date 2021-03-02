@@ -14,7 +14,7 @@ function Login() {
       try {
         setUser(userLogado);
       } catch {
-        localStorage.clear();
+        //localStorage.clear();
       }
     }
     verifica() ;
