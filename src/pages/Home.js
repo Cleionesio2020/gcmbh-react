@@ -1,10 +1,14 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import ModalGlobal from "../components/Modal";
 import Alert from "../components/Alert"
 import Api from "../services/api"
 
 function Home() {
+  //este state sera chamado caso o pronto ocorra erro de horario incompativel
+  //e nessecitar de oma obervacao pra validar 
+  const [prontoCompativel, setProntoCompativel] = useState(false);
+  const [msg, setMsg] = useState("");
   const [agora, setAgora] = useState(
     moment(new Date())
   )
@@ -36,20 +40,28 @@ function Home() {
   const [obsProntoTemp, setObsprontoTemp] = useState("");
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-  
-  const handleObservacao=(event)=>{
-    setObsprontoTemp(event.target.value) ;
+
+  const handleObservacao = (event) => {
+    setObsprontoTemp(event.target.value);
   }
 
+  //este efect entra em acao assim que tenta passar o pronto, depois do retorno da api
+
   useEffect(() => {
-    console.log('Do something after counter has changed');
-    console.log(pronto);
- }, [pronto]);
- 
-  function setObservacao(){
-    setPronto(  {...pronto, obsPronto:obsProntoTemp})
-    console.log(pronto);
-    handleClose();
+    if (prontoCompativel) {
+      setMsg("Pronto passado com sucesso.")
+    } else {
+      setMsg("Erro pronto incompatível, adicione uma observação!")
+    }
+  }, [prontoCompativel]);
+
+  //este efect entra em acao assum que clicar em passar o plrnto na odal
+  useEffect(() => {
+    handlePassarPronto();
+  }, [pronto]);
+
+  function setObservacao() {
+    setPronto({ ...pronto, obsPronto: obsProntoTemp })
   }
 
   //modal fim ********************************************************************************
@@ -71,11 +83,12 @@ function Home() {
   function handlePassarPronto() {
     setAgora(moment(new Date()))//seta a data pra na hora do click
     pronto.servidor = servidor
-    console.log(pronto)
     Api.post("pronto", pronto).then(response => {
-      console.log(response.data)
+      handleClose(); //fecha a modal
+      setProntoCompativel(true)
     }).catch(erro => {
       console.log(erro.response.data.message)
+      setProntoCompativel(false)
     })
   }
 
@@ -95,6 +108,18 @@ function Home() {
   return (
     <div>
       <div className="jumbotron">
+        <h5>Sistema registro de pronto de serviço </h5>
+        <div   className={prontoCompativel? 
+        "alert alert-primary alert-dismissible:alert}"
+        :"alert alert-danger alert-dismissible}"} 
+        role="alert">
+          
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {msg}
+        </div>
+        
         <div><input className="input-person" placeholder="BM / Matrícula" name="nome" type="text" size="20" onChange={handleServidorChange} />
           <button className='btn btn-light' onClick={handleClick}>Ok</button>
 
@@ -111,10 +136,10 @@ function Home() {
             <p><b>Escala: </b>{servidor.escala.escala} </p>
             <p><b>Início: </b>{servidor.escala.horaInicio} </p>
             <p><b>Fim: </b>{servidor.escala.horaFim} </p>
-            <button className="btn btn-primary" onClick={handleShow}>
+            <button className="btn btn-primary" onClick={handleShow} disabled={servidor.nomeFuncional===""}>
               Pronto Serviço
             </button>
-            
+
             <p />
 
             <table className="table table-sm" style={{ fontSize: "12px" }}>
