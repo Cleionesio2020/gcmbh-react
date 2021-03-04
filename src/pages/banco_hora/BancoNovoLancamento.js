@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Api from "../../services/api";
-import { FaEdit,FaSearch, } from "react-icons/fa";
+import { FaEdit,FaPlus,FaSearch, } from "react-icons/fa";
+import {useNavigate} from "react-router-dom"
 import "./bancoHora.css"
 function BancoNovoLancamento() {
+let navigate = useNavigate();
+
   const [lancamentos, setLancamentos] = useState([]);
   const[param, setParam]=useState("");
 
@@ -14,16 +17,11 @@ function BancoNovoLancamento() {
 
   return (
     <div className="container" style={{ marginTop: "30px"}}>
-      <div className="row" style={{marginBottom:"10px", marginLeft:"3px"}}>
-        <div classname="col-md-2">
-          <input type="text" class="form-control" placeholder="BM" onChange={(e)=>setParam(e.target.value)}/>
-        </div>
-        <div className="col-sm-2 no-gutters" >
-          <button className="btn btn-secondary" onClick={buscar}><FaSearch size=" 15"/>{" "}buscar</button>
-        </div>
-        <div className="col">
-          <label>{lancamentos.length>0 && lancamentos[0].servidor.nomeFuncional}</label>
-        </div>
+
+<div className='top-table' >
+        <div><input className="input-person" type="text" size="20" onChange={(e)=>setParam(e.target.value)}/> 
+        <button className='btn btn-light'  onClick={buscar}>Ok</button> </div>
+        <button className="btn btn-secondary" onClick={()=>navigate('novolancamento')}> <FaPlus size="15" />&nbsp;&nbsp;Adicionar Novo</button>
       </div>
 
       <table className="table"

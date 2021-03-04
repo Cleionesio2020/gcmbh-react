@@ -1,64 +1,9 @@
 import React, { useState } from "react";
 import Api from "../../services/api";
-import { FaSearch } from "react-icons/fa";
 import "./pronto.css";
 
 function ProntoLancamento() {
-  const data = [
-    {
-      escala: {
-        horaInicio: "06:00",
-        horaFim: "18:00",
-        escala: "12X36-D1"
-      },
 
-      nomeFuncional: "Cleionesio",
-      bm: "87134-X",
-
-      pronto: {
-        tipo: ""
-      }
-    },
-    {
-      escala: {
-        horaInicio: "06:30",
-        horaFim: "18:30",
-        escala: "12X36-D2"
-      },
-
-      nomeFuncional: "Amarildo",
-      bm: "87333-X",
-      pronto: {
-        tipo: ""
-      }
-    },
-    {
-      escala: {
-        horaInicio: "07:00",
-        horaFim: "19:00",
-        escala: "12X36-D1"
-      },
-
-      nomeFuncional: "Janaina",
-      bm: "23564-4",
-      pronto: {
-        tipo: ""
-      }
-    },
-    {
-      escala: {
-        horaInicio: "06:00",
-        horaFim: "18:00",
-        escala: "12X36-D1"
-      },
-
-      nomeFuncional: "Clodoaudo",
-      bm: "83568-X",
-      pronto: {
-        tipo: ""
-      }
-    }
-  ];
 
   const [pronto, setPronto] = useState({
     horaInicio: "",
@@ -104,46 +49,24 @@ function ProntoLancamento() {
 
   return (
     <div>
-      <div
-        className="container"
-        style={{
-          marginBottom: "10px",
-          backgroundColor: "#3333",
-          padding: "10px",
-          borderRadius: "5px"
-        }}
-      >
-        <form>
-          <div className="row justify-content-center">
-            <div className="col-sm-4 ">
-              <input
-                type="text"
-                name="bm"
-                placeholder="Bm"
-                size="5"
-                onChange={(e) => setBm(e.target.value)}
-              />
+      <div>
+        <form> 
 
-              <button className="btn" onClick={buscarPorBm}>
-                <FaSearch />
-              </button>
+          <div className='top-table' >
+            <div>
+              <input className="input-person" type="text" size="15" name="bm" placeholder="Bm" onChange={(e) => setBm(e.target.value)} />
+              &nbsp;<button className='btn btn-light' onClick={buscarPorBm}>Buscar</button>
+                &nbsp;&nbsp;&nbsp;
+              <input className="input-person" type="text" name="cod" size="15" placeholder="Cod lotação" onChange={(e) => setBm(e.target.value)} />
+              &nbsp;<button className='btn btn-light' onClick={buscarPorCodigo}>Buscar</button>
             </div>
-            <div className="col-sm-4">
-              <span>
-                <input
-                  type="text"
-                  name="cod"
-                  size="5"
-                  placeholder="Cod lotação"
-                />
-                <button className="btn" onClick={buscarPorCodigo}>
-                  <FaSearch />
-                </button>
-              </span>
-            </div>
+
           </div>
         </form>
       </div>
+
+
+
       <div className="overflow-auto" style={{ height: 400 }}>
         <div className="card" style={{ padding: 20 }}>
           <table className="table table-sm" style={{ fontSize: "12px" }}>

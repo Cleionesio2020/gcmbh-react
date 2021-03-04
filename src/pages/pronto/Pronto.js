@@ -5,23 +5,10 @@ import {
 
 function Pronto() {
     return (
-        <>
-            <div className="content" style={{ marginTop: "20px" }} >
-                <ul className="nav nav-tabs" id="myTab" role="tablist">
-                    <li className="nav-item">
-                        <Link className="nav-link active" id="home-tab" data-toggle="tab" to="" role="tab" aria-controls="home" aria-selected="true">Lancamento Pronto </Link>
-                    </li>
-
-                    <li className="nav-item">
-                        <Link className="nav-link" id="contact-tab" data-toggle="tab" to="RelatorioPronto" role="tab" aria-controls="contact" aria-selected="false">Relatório de Pronto</Link>
-                    </li>
-
-                </ul>
-                <div className="panel-toobar">
-                    <Outlet />
-                </div>
-            </div>
-        </>
+        <div className="bg-light" style={{ borderRadius: "5px", padding: "10px" }}>
+            <h6 className="card-title" style={{ padding: "10px", backgroundColor: "#fff", borderRadius: "5px" }}>Gerenciar Pronto de Serviço</h6>
+            <Outlet />
+        </div>
     );
 }
 

@@ -7,22 +7,9 @@ import {
 
 function BancoHora() {
   return (
-    <div className="content" style={{ marginTop: "20px" }} >
-      <ul className="nav nav-tabs" id="myTab" role="tablist">
-       
-        <li className="nav-item">
-          <Link className="nav-link active" id="home-tab" data-toggle="tab" to="" role="tab" aria-controls="home" aria-selected="true">Lançamentos</Link>
-        </li>
-
-        <li className="nav-item">
-          <Link className="nav-link" id="home-tab" data-toggle="tab" to="novolancamento" role="tab" aria-controls="home" aria-selected="false">Novo Lancamento</Link>
-        </li>
-
-
-      </ul>
-      <div className="panel-toobar">
-        <Outlet />
-      </div>
+    <div className="bg-light" style={{borderRadius:"5px",padding:"10px"}}>
+    <h6 className="card-title" style={{padding:"10px",backgroundColor:"#fff",borderRadius:"5px"}}>Controle de Banco de hora</h6>
+      <Outlet />
     </div>
   )
 }

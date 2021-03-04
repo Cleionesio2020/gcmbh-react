@@ -1,9 +1,10 @@
 import React, { useState} from "react";
 import Api from "../../services/api";
 import { FaSearch, FaPlus, FaEdit, FaTrash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 
 function LotacaoHome() {
+  let navigate = useNavigate();
   const [codProprio, setCodProprio] = useState("");
   const [lotacao, setLotacao] = useState([]);
 
@@ -24,17 +25,12 @@ function LotacaoHome() {
   return (
 
     <div className="container">
-     
-      <div className="row" style={{ marginBottom: "5px",margin:"5px 0", width:"100%"}}>
-        <div classname="col-md-3">
-          <input type="text" class="form-control" placeholder="Cod lotação" onChange={(e) => setCodProprio(e.target.value)} />
-        </div>
-        <div className="col-sm-3 no-gutters" >
-          <button className="btn btn-secondary" onClick={buscarPorCodProprio}><FaSearch size="15" />&nbsp;&nbsp;buscar</button>
-        </div>
-        <div className="col-sm-6 no-gutters" style={{textAlign: "right", padding:0 }} >
-          <Link className="btn btn-primary" to="LotacaoNova" ><span style={{ display: "flex", alignItems: "center" }}><FaPlus /> &nbsp; Adicionar Novo </span></Link>
-        </div>
+
+
+<div className='top-table' >
+        <div><input className="input-person" type="text" size="20" onChange={(e) => setCodProprio(e.target.value)} /> 
+        <button className='btn btn-light' onClick={buscarPorCodProprio}>Ok</button> </div>
+        <button className="btn btn-secondary" onClick={()=>navigate('LotacaoNova')}> <FaPlus size="15" />&nbsp;&nbsp;Adicionar Novo</button>
       </div>
 
       <div className="overflow-auto" style={{ height: 400 }}>

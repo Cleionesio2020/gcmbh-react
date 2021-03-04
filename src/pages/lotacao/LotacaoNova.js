@@ -1,11 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { FaList } from "react-icons/fa";
+import { Link , useNavigate} from "react-router-dom";
 function LotacaoNova() {
-
+let navigate = useNavigate();
   return (
     <div className="card">
       <div className="card-body">
-        <h6 className="card-title">Adicionar / Editar Lotação</h6>
+      <div className='top-table' >
+        <div><h4>Adicionar / Editar lotação</h4></div>
+        <button className="btn btn-secondary" onClick={() => navigate('/lotacao')}> <FaList size="15" />&nbsp;&nbsp;Voltar lista</button>
+      </div>
+
         <Link Link to="/Lotacao">&nbsp;voltar</Link>
         <form>
           <div class="form-row">

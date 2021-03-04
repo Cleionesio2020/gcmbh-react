@@ -1,10 +1,12 @@
 
 import React, { useState } from "react";
+import { FaList } from "react-icons/fa";
 import SelectServidorNome from "../../components/SelectServidorNome";
 import Api from '../../services/api'
+import {useNavigate}from "react-router-dom"
 
 function BancoHome() {
-
+let navigate = useNavigate();
   const lancamentoInicial = { 
     dataLancamento: new Date(),
     dataReferencia:"",
@@ -50,6 +52,10 @@ function BancoHome() {
   return (
     <>
       <div className="container" style={{ marginTop: "20px", width: "50rem" }}>
+      <div className='top-table' >
+        <div><h4>Adicionar novo protocolo</h4></div>
+        <button className="btn btn-secondary" onClick={()=>navigate('/Banco-Hora')}> <FaList size="15" />&nbsp;&nbsp;Voltar lista</button>
+      </div>
         <form onSubmit={handleSubmit}>
           <div className="card">
             <div className="card-body">

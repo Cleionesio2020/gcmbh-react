@@ -87,7 +87,7 @@ function Home() {
       handleClose(); //fecha a modal
       setProntoCompativel(true)
     }).catch(erro => {
-      console.log(erro.response.data.message)
+     // console.log(erro.response.data.message)
       setProntoCompativel(false)
     })
   }
