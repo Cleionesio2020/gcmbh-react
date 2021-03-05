@@ -6,7 +6,7 @@ function Alerta(props) {
 
     return (
         <>
-            <Alert variant="success" onClose={props.onclose}  show={props.showMessage} dismissible style={{width:"300px"}}>
+            <Alert variant={props.variant} onClose={props.oncloseMessage}   dismissible >
                  {props.message}
             </Alert>
            

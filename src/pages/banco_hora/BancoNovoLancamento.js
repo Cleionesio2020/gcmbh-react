@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Api from "../../services/api";
-import { FaEdit,FaPlus,FaSearch, } from "react-icons/fa";
-import {useNavigate} from "react-router-dom"
+import { FaEdit, FaPlus, FaSearch, } from "react-icons/fa";
+import { useNavigate } from "react-router-dom"
 import "./bancoHora.css"
 function BancoNovoLancamento() {
-let navigate = useNavigate();
+  let navigate = useNavigate();
 
   const [lancamentos, setLancamentos] = useState([]);
-  const[param, setParam]=useState("");
+  const [param, setParam] = useState("");
 
   const buscar = () => {
     Api.get(`/banco-horas/${param}`).then((resp) => {
@@ -16,12 +16,12 @@ let navigate = useNavigate();
   }
 
   return (
-    <div className="container" style={{ marginTop: "30px"}}>
+    <div className="container" style={{ marginTop: "30px" }}>
 
-<div className='top-table' >
-        <div><input className="input-person" type="text" size="20" onChange={(e)=>setParam(e.target.value)}/> 
-        <button className='btn btn-light'  onClick={buscar}>Ok</button> </div>
-        <button className="btn btn-secondary" onClick={()=>navigate('novolancamento')}> <FaPlus size="15" />&nbsp;&nbsp;Adicionar Novo</button>
+      <div className='top-table' >
+        <div><input className="input-person" type="text" size="20" onChange={(e) => setParam(e.target.value)} />
+          <button className='btn btn-light' onClick={buscar}>Ok</button> </div>
+        <button className="btn btn-secondary" onClick={() => navigate('novolancamento')}> <FaPlus size="15" />&nbsp;&nbsp;Adicionar Novo</button>
       </div>
 
       <table className="table"

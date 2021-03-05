@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import ModalGlobal from "../components/Modal";
-import Alert from "../components/Alert"
 import Api from "../services/api"
+import Alert from 'react-bootstrap/Alert'
 
 function Home() {
   //este state sera chamado caso o pronto ocorra erro de horario incompativel
   //e nessecitar de oma obervacao pra validar 
   const [prontoCompativel, setProntoCompativel] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
   const [msg, setMsg] = useState("");
   const [agora, setAgora] = useState(
     moment(new Date())
@@ -44,14 +45,15 @@ function Home() {
   const handleObservacao = (event) => {
     setObsprontoTemp(event.target.value);
   }
-
   //este efect entra em acao assim que tenta passar o pronto, depois do retorno da api
 
   useEffect(() => {
     if (prontoCompativel) {
       setMsg("Pronto passado com sucesso.")
     } else {
-      setMsg("Erro pronto incompatível, adicione uma observação!")
+      if (msg !== "") {
+        setMsg("Erro pronto incompatível, adicione uma observação!")
+      }
     }
   }, [prontoCompativel]);
 
@@ -60,12 +62,18 @@ function Home() {
     handlePassarPronto();
   }, [pronto]);
 
+
+  useEffect(() => {
+    if (msg !== "") {
+      setShowMessage(true)
+    }
+  }, [msg]);
+
   function setObservacao() {
     setPronto({ ...pronto, obsPronto: obsProntoTemp })
   }
 
   //modal fim ********************************************************************************
-
   function handleServidorChange(event) {
     setServidor({ ...servidor, bm: event.target.value })
   }
@@ -73,6 +81,7 @@ function Home() {
   function handleClick() {
     Api.get(`servidor/servidor/${servidor.bm}`)
       .then(resp => {
+        console.log(resp.data)
         setServidor(resp.data)
       })
       .catch(error => {
@@ -87,7 +96,6 @@ function Home() {
       handleClose(); //fecha a modal
       setProntoCompativel(true)
     }).catch(erro => {
-     // console.log(erro.response.data.message)
       setProntoCompativel(false)
     })
   }
@@ -105,27 +113,24 @@ function Home() {
     }
     return texto
   }
+
   return (
     <div>
       <div className="jumbotron">
-        <h5>Sistema registro de pronto de serviço </h5>
-        <div   className={prontoCompativel? 
-        "alert alert-primary alert-dismissible:alert}"
-        :"alert alert-danger alert-dismissible}"} 
-        role="alert">
-          
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          {msg}
+        <div className='top-table' >
+          <div><h4>Gerenciamento de pronto de serviço</h4></div>
         </div>
-        
-        <div><input className="input-person" placeholder="BM / Matrícula" name="nome" type="text" size="20" onChange={handleServidorChange} />
+        <Alert variant={prontoCompativel ? "primary" : "danger"} show={showMessage} onClose={() => setShowMessage(false)} dismissible>
+          {msg}
+        </Alert>
+
+
+
+        <div>
+          <input className="input-person" placeholder="BM / Matrícula" name="bm" type="text" size="20" onChange={handleServidorChange} />
           <button className='btn btn-light' onClick={handleClick}>Ok</button>
 
         </div>
-
-
         <hr />
 
         <div className="card">
@@ -136,7 +141,7 @@ function Home() {
             <p><b>Escala: </b>{servidor.escala.escala} </p>
             <p><b>Início: </b>{servidor.escala.horaInicio} </p>
             <p><b>Fim: </b>{servidor.escala.horaFim} </p>
-            <button className="btn btn-primary" onClick={handleShow} disabled={servidor.nomeFuncional===""}>
+            <button className="btn btn-primary" onClick={handleShow} disabled={servidor.nomeFuncional === ""}>
               Pronto Serviço
             </button>
 
@@ -162,7 +167,6 @@ function Home() {
                     </tr>
                   )
                 })}
-
               </tbody>
             </table>
           </div>
