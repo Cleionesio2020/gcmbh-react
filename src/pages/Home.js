@@ -3,6 +3,11 @@ import moment from "moment";
 import ModalGlobal from "../components/Modal";
 import Api from "../services/api"
 import Alert from 'react-bootstrap/Alert'
+import { TileLayer, Marker, Popup, MapContainer } from 'react-leaflet'
+import Leaflet from 'leaflet'
+import 'leaflet/dist/leaflet.css';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 function Home() {
   //este state sera chamado caso o pronto ocorra erro de horario incompativel
@@ -69,6 +74,18 @@ function Home() {
     }
   }, [msg]);
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      setLocal({...local, lat:position.coords.latitude,long: position.coords.longitude});
+    });
+  }, []);
+
+
+  const [local, setLocal] = useState({
+    lat: -19.91929, long: -43.9364382,
+  })
+ 
+
   function setObservacao() {
     setPronto({ ...pronto, obsPronto: obsProntoTemp })
   }
@@ -113,9 +130,18 @@ function Home() {
     }
     return texto
   }
+  const position = [local.lat, local.long]
+  
+  const custonIcon = new Leaflet.icon({
+    iconUrl:icon,
+    iconSize: [25, 41],
+    iconAnchor: [10, 41],
+    popupAnchor: [2, -40]
+  });
 
   return (
     <div>
+
       <div className="jumbotron">
         <div className='top-table' >
           <div><h4>Gerenciamento de pronto de serviço</h4></div>
@@ -146,6 +172,17 @@ function Home() {
             </button>
 
             <p />
+            <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{height:"40vh",width:"100%"}}>
+              <TileLayer
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={position} draggable="True" pane="popupPane" icon={custonIcon} >
+                <Popup>
+                Esta é sua localização atual
+               </Popup>
+              </Marker>
+            </MapContainer>
 
             <table className="table table-sm" style={{ fontSize: "12px" }}>
               <thead>
