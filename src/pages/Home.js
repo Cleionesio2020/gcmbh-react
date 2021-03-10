@@ -145,9 +145,7 @@ function Home() {
         <Alert variant={prontoCompativel ? "primary" : "danger"} show={showMessage} onClose={() => setShowMessage(false)} dismissible>
           {msg}
         </Alert>
-
-
-
+        
         <div>
           <input className="input-person" placeholder="BM / Matrícula" name="bm" type="text" size="20" onChange={handleServidorChange} />
           <button className='btn btn-light' onClick={handleClick}>Ok</button>
@@ -168,7 +166,7 @@ function Home() {
             </button>
 
             <p />
-            {local ?
+            {local &&
             <Map center={[local.lat,local.long]} zoom={13} scrollWheelZoom={false} style={{height:"40vh",width:"100%"}}>
               <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -180,8 +178,8 @@ function Home() {
                </Popup>
               </Marker>
             </Map>
-            : 
-            <h3 style={{alignItems:center}}>Carregando map...</h3>
+            
+           
 }
             <table className="table table-sm" style={{ fontSize: "12px" }}>
               <thead>
