@@ -9,10 +9,8 @@ import Pronto from "../pages/pronto/Pronto";
 import ProntoLancamento from "../pages/pronto/ProntoLancamento";
 import RelatorioPronto from "../pages/pronto/RelatorioPronto";
 
-import Lotacao from "../pages/lotacao/Lotacao";
-import LotacaoHome from "../pages/lotacao/Lotacaohome";
-import LotacaoNova from "../pages/lotacao/LotacaoNova";
-import LotacaoEfetivo from "../pages/lotacao/LotacaoEfetivo";
+import Empenho from "../pages/empenhos/empenho";
+import EmpenhoHome from "../pages/empenhos/empenho_home";
 
 import EscalaHome from "../pages/EscalaHome";
 import BancoHora from "../pages/banco_hora/Banco-hora";
@@ -31,14 +29,19 @@ import ProtocoloNovo from "../pages/protocolo/protocolo-novo";
 import Despacho from "../pages/protocolo/despacho";
 import ProtocoloVerDespacho from "../pages/protocolo/protocolo-ver-despacho";
 
+import Ambulante from "../pages/ambulante/ambulante-home";
+
+
 export default function Rotas() {
   return (
     <Router basename='/site'>
       <NavBar />
-      <div className="container" style={{ marginTop: "20px", minHeight: "700px" }}>
+      <div style={{ marginTop: "20px", minHeight: "700px" }}>
         <Routes>
 
         <Route path="/" element={<Home />} />
+
+        <Route path="/ambulante" element={<Ambulante />} />
 
           <Route path="/Protocolo" element={<Protocolo />}>
             <Route path="/" element={<ProtocoloLista />} />
@@ -72,10 +75,8 @@ export default function Rotas() {
             <Route path="/" element={<EscalaHome />} />
           </Route>
 
-          <Route path="/Lotacao" element={<Lotacao />}>
-            <Route path="/" element={<LotacaoHome />} />
-            <Route path="/:LotacaoNova" element={<LotacaoNova />} />
-            <Route path="/:LotacaoEfetivo" element={<LotacaoEfetivo />} />
+          <Route path="/empenhos" element={<Empenho />}>
+            <Route path="/" element={<EmpenhoHome />} />
           </Route>
 
           <Route path="/Teste" element={<p>Teste</p>} />

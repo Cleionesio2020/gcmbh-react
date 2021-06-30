@@ -2,26 +2,110 @@ import React, { useState, useEffect } from "react";
 import { FaPlus,FaRegEdit,FaEye, FaEnvelope, FaUserEdit } from "react-icons/fa";
 import Api from "../../services/api";
 import { useNavigate } from 'react-router-dom';
+import moment from "moment";
 
 
 function ProtocoloLista() {
-  const [protocolos, setProtocolos] = useState([]);
-  let navigate = useNavigate();
-  useEffect(() => {
-    async function carregar() {
-      let dados = await Api.get("/protocolos")
-        .then((resp) => {
-          setProtocolos(resp.data);
-          console.log(resp.data)
-        })
-        .catch((error) => {
-          console.log(error);
-        }); 
-        carregar();
-    }
-   
-  }, []);
+const dadosIniciais =[
+  {
+      "id": 1,
+      "dataInicio": "2021-06-27T22:31:07.439+00:00",
+      "dataFim": "2021-06-27T23:20:07.439+00:00",
+      "horaAcionamento": "8:00",
+      "orgaoAcionador": "populares",
+      "atividade": {
+          "id": 2,
+          "codigo": "PP",
+          "descricao": "Passagem Periódica"
+      },
+      "guarnicao": {
+          "id": 5,
+          "descricao": "FISCOPE N",
+          "turno": 1,
+          "codigo": "FISCOPE N DIA-1",
+          "escala": "12X36 - D1",
+          "areaAtuacao": "NORTE",
+          "controlesVtr": []
+      },
+      "proprio": {
+          "id": 3,
+          "codigo": "8320",
+          "nome": "CENTRO DE SA[UDE SANTA AMELIA",
+          "latitude": null,
+          "longitude": null
+      },
+      "endereco": null,
+      "qtdAnotados": 2,
+      "observacaoAtividade": "obs teste"
+  },
+  {
+      "id": 2,
+      "dataInicio": "2021-06-27T22:31:07.439+00:00",
+      "dataFim": "2021-06-27T23:20:07.439+00:00",
+      "horaAcionamento": "8:00",
+      "orgaoAcionador": "populares",
+      "atividade": {
+          "id": 2,
+          "codigo": "PP",
+          "descricao": "Passagem Periódica"
+      },
+      "guarnicao": {
+          "id": 5,
+          "descricao": "FISCOPE N",
+          "turno": 1,
+          "codigo": "FISCOPE N DIA-1",
+          "escala": "12X36 - D1",
+          "areaAtuacao": "NORTE",
+          "controlesVtr": []
+      },
+      "proprio": {
+          "id": 3,
+          "codigo": "8320",
+          "nome": "CENTRO DE SA[UDE SANTA AMELIA",
+          "latitude": null,
+          "longitude": null
+      },
+      "endereco": null,
+      "qtdAnotados": 2,
+      "observacaoAtividade": "obs teste"
+  },
+  {
+      "id": 3,
+      "dataInicio": "2021-06-27T22:31:07.439+00:00",
+      "dataFim": "2021-06-27T23:20:07.439+00:00",
+      "horaAcionamento": "8:00",
+      "orgaoAcionador": "populares",
+      "atividade": {
+          "id": 2,
+          "codigo": "PP",
+          "descricao": "Passagem Periódica"
+      },
+      "guarnicao": {
+          "id": 5,
+          "descricao": "FISCOPE N",
+          "turno": 1,
+          "codigo": "FISCOPE N DIA-1",
+          "escala": "12X36 - D1",
+          "areaAtuacao": "NORTE",
+          "controlesVtr": []
+      },
+      "proprio": {
+          "id": 3,
+          "codigo": "8320",
+          "nome": "CENTRO DE SA[UDE SANTA AMELIA",
+          "latitude": null,
+          "longitude": null
+      },
+      "endereco": null,
+      "qtdAnotados": 2,
+      "observacaoAtividade": "obs teste"
+  }
+]
 
+
+  const [lancamento, setLancamento] = useState(dadosIniciais);
+  let navigate = useNavigate();
+  
   function handleEdit(idProtocolo){
       navigate(`novo_protocolo/${idProtocolo}`)
   }
@@ -35,27 +119,26 @@ function ProtocoloLista() {
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Protocolo</th>
-            <th scope="col">Data Prot</th>
-            <th scope="col">Data doc</th>
-            <th scope="col">Origem</th>
-            <th scope="col">Destino</th>
-            <th scope="col">Opções</th>
+            <th scope="col">Data</th>
+            <th scope="col">guarniçao</th>
+            <th scope="col">Atividade</th>
+            <th scope="col">Proprio</th>
+            <th scope="col">Inicio</th>
+            <th scope="col">Fim</th>
           </tr>
         </thead>
         <tbody>
-          {protocolos.map(item => {
+          {lancamento.map(item => {
             return (
               <tr key={item.id}>
-                <td scope="row">{item.numProtocolo}</td>
-                <td scope="row">{item.dataProtocolo}</td>
-                <td scope="row">{item.dataDocumento}</td>
-                <td scope="row">{item.servidorOrigem? item.servidorOrigem.nomeFuncional: 'Não informado'}</td>
-                <td scope="row">{item.servidorDestino.nomeFuncional}</td>
+                <td scope="row">{moment(Date.now()).format('DD/MM/YYYY') }</td>
+                <td scope="row">{item.guarnicao.codigo}</td>
+                <td scope="row">{item.atividade.codigo}</td>
+                <td scope="row">{item.proprio.codigo}</td>
+                <td scope="row">{moment(item.dataInicio).format('hh:mm')}</td>
+                <td scope="row">{moment(item.dataFim).format('hh:mm')}</td>
                 <td scope="row"> 
-                <button className="btn-icon" onClick={()=>navigate(`protocolo_ver_despacho/${item.id}`)}><FaEye color="green"/> Ver </button>&nbsp;&nbsp;
-                <button className="btn-icon" onClick={()=>handleEdit(item.id)}><FaRegEdit color="blue"/> Editar </button>&nbsp;&nbsp;
-                <button className="btn-icon" onClick={()=>navigate('despacho')}><FaUserEdit color="orange"/> Despacho</button></td>
+                <button className="btn-icon" onClick={()=>navigate(`protocolo_ver_despacho/${item.id}`)}><FaEye color="green"/> Ver </button></td>
               </tr>
 
             )

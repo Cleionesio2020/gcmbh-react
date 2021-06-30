@@ -1,15 +1,19 @@
 import React from "react";
-import "./navBar.css"
-import logo from "../assets/images/icon.png"
+import "./navBar.css";
+import logo from "../assets/images/icon.png";
 import { Link, NavLink } from "react-router-dom";
 
 export default function NavBar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light"
+    <nav
+      className="navbar navbar-expand-lg navbar-light bg-light"
       style={{ boxShadow: "0px 4px 3px -4px rgba(0,0,0,0.33)" }}
     >
-      <Link className="navbar-brand" style={{ marginRight: '5px' }} to="/">
-      <div className="logo"><img src={logo}  alt="logo" width="35" />&nbsp; GCMBH</div>
+      <Link className="navbar-brand" style={{ marginRight: "5px" }} to="/">
+        <div className="logo">
+          <img src={logo} alt="logo" width="35" />
+          &nbsp; GCMBH
+        </div>
       </Link>
       <button
         className="navbar-toggler"
@@ -24,34 +28,67 @@ export default function NavBar() {
       </button>
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <NavLink
+              to="/Protocolo"
+              className="nav-link"
+              activeClassName="active"
+            >
+              Controle viaturas
+            </NavLink>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Registros
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+            <NavLink to="/ambulante" className="dropdown-item"  activeClassName="active" >
+              Ambulante
+            </NavLink>
+
+            <NavLink to="/Flanelinha" className="dropdown-item"  activeClassName="active" >
+              Flanelinha
+            </NavLink>
+
+              <a class="dropdown-item" href="#">
+                Another action
+              </a>
+
+              <div class="dropdown-divider"></div>
+
+              <a class="dropdown-item" href="#">
+                Something else here
+              </a>
+            </div>
+          </li>
+
+          
 
           <li className="nav-item">
-            <NavLink to="/Protocolo" className="nav-link" activeClassName="active">
-              Protocolo
+            <NavLink
+              to={"/empenhos"}
+              className="nav-link"
+              activeClassName="active"
+            >
+            Empenhos Programados
             </NavLink>
           </li>
 
           <li className="nav-item">
-            <NavLink to="/Pronto" className="nav-link" activeClassName="active">
-              Pronto
-            </NavLink>
-          </li>
-
-          <li className="nav-item">
-            <NavLink to={"/Lotacao"} className="nav-link" activeClassName="active">
-              Lotacao
-            </NavLink>
-          </li>
-
-
-          <li className="nav-item">
-            <NavLink to="/Servidor" className="nav-link" activeClassName="active">
-              Servidores
-            </NavLink>
-          </li>
-
-          <li className="nav-item">
-            <NavLink to="/Banco-Hora" className="nav-link" activeClassName="active">
+            <NavLink
+              to="/Banco-Hora"
+              className="nav-link"
+              activeClassName="active"
+            >
               Banco de Horas
             </NavLink>
           </li>

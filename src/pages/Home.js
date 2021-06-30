@@ -7,6 +7,10 @@ import { TileLayer, Marker, Popup, Map } from 'react-leaflet'
 import Leaflet from 'leaflet'
 import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import Select from 'react-select'
+
 
 function Home() {
   //este state sera chamado caso o pronto ocorra erro de horario incompativel
@@ -135,8 +139,28 @@ function Home() {
     popupAnchor: [2, -40]
   });
 
+  const[dados,setDados]=useState([{ value: 'chocolate', label: 'choco' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }])
+
+    function busca(){
+      setDados([{ value: 'asdasd', label: 'csdasd' },
+      { value: 'dfgdfgdfgd', label: 'dfgdfgdfgdf' },
+      { value: 'werwerw', label: 'werwerwer' }])
+    }
+
+  const options = dados
+  
+  const MyComponent = () => (
+    <Select options={options} onKeyDown ={busca}/>
+  )
+
   return (
     <div>
+
+<MyComponent/>
+
+      <Calendar/>
 
       <div className="jumbotron">
         <div className='top-table' >
