@@ -23,13 +23,13 @@ import ServidorEscala from "../pages/servidor/ServidorEscala";
 import ServidorLotacao from "../pages/servidor/ServidorLotacao";
 
 import Footer from "../components/Footer";
-import Protocolo from "../pages/protocolo/protocolo";
-import ProtocoloLista from "../pages/protocolo/protocolo-lista";
-import ProtocoloNovo from "../pages/protocolo/protocolo-novo";
-import Despacho from "../pages/protocolo/despacho";
-import ProtocoloVerDespacho from "../pages/protocolo/protocolo-ver-despacho";
 
 import Ambulante from "../pages/ambulante/ambulante-home";
+
+import LancamentoHome from "../pages/Lancamentos/lancamento_home";
+import Lancamento from "../pages/Lancamentos/lancamento";
+import LancamentoNovo from "../pages/Lancamentos/lancamento-novo";
+
 
 
 export default function Rotas() {
@@ -43,12 +43,9 @@ export default function Rotas() {
 
         <Route path="/ambulante" element={<Ambulante />} />
 
-          <Route path="/Protocolo" element={<Protocolo />}>
-            <Route path="/" element={<ProtocoloLista />} />
-            <Route path="/novo_protocolo" element={<ProtocoloNovo/>} />
-            <Route path="/novo_protocolo/:id" element={<ProtocoloNovo/>} />
-            <Route path="/protocolo_ver_despacho/:id" element={<ProtocoloVerDespacho />} />
-            <Route path="/Despacho" element={<Despacho />} />
+          <Route path="/Lancamento" element={<Lancamento />}>
+            <Route path="/" element={<LancamentoHome />} />
+            <Route path="/lancamento_novo" element={<LancamentoNovo />} />
           </Route>
 
           <Route path="/Pronto" element={<Pronto />} >

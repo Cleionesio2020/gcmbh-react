@@ -30,7 +30,7 @@ export default function NavBar() {
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
             <NavLink
-              to="/Protocolo"
+              to="/lancamento"
               className="nav-link"
               activeClassName="active"
             >

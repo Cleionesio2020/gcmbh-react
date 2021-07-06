@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { FaPlus,FaRegEdit,FaEye, FaEnvelope, FaUserEdit } from "react-icons/fa";
-import Api from "../../services/api";
+import React, { useState } from "react";
+import { FaPlus,FaEye, } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import moment from "moment";
 
 
-function ProtocoloLista() {
+function LancamentoHome() {
 const dadosIniciais =[
   {
       "id": 1,
@@ -114,7 +113,7 @@ const dadosIniciais =[
     <div className="jumbotron">
       <div className='top-table' >
         <div><input className="input-person" type="text" size="20" /> <button className='btn btn-light'>Ok</button> </div>
-        <button className="btn btn-secondary" onClick={()=>navigate('novo_protocolo')}> <FaPlus size="15" />&nbsp;&nbsp;Adicionar Novo</button>
+        <button className="btn btn-secondary" onClick={()=>navigate('lancamento_novo')}> <FaPlus size="15" />&nbsp;&nbsp;Adicionar Novo</button>
       </div>
       <table class="table">
         <thead>
@@ -151,4 +150,4 @@ const dadosIniciais =[
   );
 }
 
-export default ProtocoloLista;
+export default LancamentoHome;
