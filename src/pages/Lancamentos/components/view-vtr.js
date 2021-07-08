@@ -3,7 +3,7 @@ import "./style.css";
 export default function ViewViatura({viatura} ) {
   return (
     <div className="content">
-      <span className="content-titulo">{viatura.placa}</span>
+      <span className="content-titulo"> { `${viatura.placa} (${viatura.componetes.length})` }</span>
       <button className="btn-content">
         <FaTimes size="12" />
       </button>

@@ -7,10 +7,9 @@ import { FaList } from "react-icons/fa";
 import ViewViatura from "./components/view-vtr";
 
 function LancamentoNovo() {
-  const [guarnicao, setGuarnicao] = useState({});
+  const [guarnicao, setGuarnicao] = useState({codigo:"", viaturas:[]});
   const [lancamento, setLancamento] = useState({});
-  const [viatura, setViatura] = useState({ placa:"", componetes: [] });
-  const [viaturas, setViaturas] = useState([]);
+  const [viatura, setViatura] = useState({ placa: "", componetes: [] });
   const [componenteVtr, setComponenteVtr] = useState({});
 
   //AO ALTERAR STATE DA GUARNICAO
@@ -31,23 +30,28 @@ function LancamentoNovo() {
   function handleChangeviatura(e) {
     const { value, name } = e.target;
     setViatura({ ...viatura, [name]: value });
-    console.log(viatura);
   }
 
   //AO ALTERAR STATE DO COMPONETE DA VTR
   function handleChangevCompVtr(e) {
     const { value, name } = e.target;
     setComponenteVtr({ ...componenteVtr, [name]: value });
-    console.log(componenteVtr);
   }
   //AO ADICIONAR COMPONETE A VIATURA
   function addComponenteAViatura() {
-    const comp = [...viatura.componetes, componenteVtr];
-    setViatura({ ...viatura, componetes: comp });
+    const componenteExploded = [...viatura.componetes, componenteVtr];
+    setViatura({ ...viatura, componetes: componenteExploded });
+    setComponenteVtr({});
   }
+  //  AO ADICIONAR UMA VIATURA A GUARNICAO
+  function addViaturaAguarnicao() {
+    const viaturaExploded = [ ...guarnicao.viaturas, viatura ]
+    setGuarnicao({ ...guarnicao , viaturas:viaturaExploded})
+  }
+
   useEffect(() => {
-    console.log(viatura);
-  }, [viatura]);
+    console.log(guarnicao)
+  }, [guarnicao]);
 
   return (
     <div>
@@ -79,8 +83,8 @@ function LancamentoNovo() {
             />
           </div>
         </div>
-       
-        <ViewViatura viatura={viatura}/>
+
+        <ViewViatura viatura={viatura} />
       </div>
       <div id="accordion" style={{ marginTop: "10px" }}>
         <div class="card" style={{ marginTop: "10px" }}>
@@ -115,6 +119,7 @@ function LancamentoNovo() {
                     type="text"
                     className="form-control"
                     name="placa"
+                    value={viatura.placa || ""}
                     onChange={handleChangeviatura}
                   />
                 </div>
@@ -128,7 +133,8 @@ function LancamentoNovo() {
                     className="form-control"
                     name="dataDocumento"
                     type="text"
-                    name="hodinicial"
+                    name="hodInicial"
+                    value={viatura.hodInicial || ""}
                     onChange={handleChangeviatura}
                   />
                 </div>
@@ -141,7 +147,8 @@ function LancamentoNovo() {
                     className="form-control"
                     name="dataDocumento"
                     type="text"
-                    name="placa"
+                    name="hodFinal"
+                    value={viatura.hodFinal || ""}
                     onChange={handleChangeviatura}
                   />
                 </div>
@@ -156,6 +163,7 @@ function LancamentoNovo() {
                     className="form-control"
                     type="text"
                     name="nome"
+                    value={componenteVtr.nome || ""}
                     onChange={handleChangevCompVtr}
                   />
                 </div>
@@ -217,8 +225,11 @@ function LancamentoNovo() {
 
               <div className="row" style={{ marginTop: "10px" }}>
                 <div className="col-sm-12">
-                  <button className="btn btn-primary">
-                    Adicionar Viatura à guarnicão
+                  <button
+                    className="btn btn-primary"
+                    onClick={addViaturaAguarnicao}
+                  >
+                    Confirmar a viatura
                   </button>
                 </div>
               </div>
