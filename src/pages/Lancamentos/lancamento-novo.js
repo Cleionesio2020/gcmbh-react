@@ -1,62 +1,129 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+
+import AsyncSelect from "react-select/async";
+import Select from "react-select";
 import Api from "../../services/api";
 import moment from "moment";
 import { FaList } from "react-icons/fa";
 import ViewViatura from "./components/view-vtr";
 
 function LancamentoNovo() {
-  const [guarnicao, setGuarnicao] = useState({codigo:"", viaturas:[]});
-  const [lancamento, setLancamento] = useState({});
-  const [viatura, setViatura] = useState({ placa: "", componetes: [] });
-  const [componenteVtr, setComponenteVtr] = useState({});
 
+const [ controleViatura, setControleViatura ] = useState({componentes:[], viatura:{}, hodInicial:0,hodFinal:0})
+
+const [ controleGuarnicao, setControleGuarnicao ] = useState({ guarnicao:{}, controleViatura:[] })
+
+  const [guarnicao, setGuarnicao] = useState({ codigo: "", viaturas: [] });
+  const [lancamento, setLancamento] = useState({});
+  const [viatura, setViatura] = useState({ placa: ""});
+  const [componenteVtr, setComponenteVtr] = useState({});
+  const [teste, setTeste]=useState(null);
+const text = useRef();
+  
   //AO ALTERAR STATE DA GUARNICAO
   function handleChangeGuarnicao(e) {
-    const { value, name } = e.target;
-    setGuarnicao({ ...guarnicao, [name]: value });
+    const valor = e.value;
+    setGuarnicao({ ...guarnicao, codigo: valor });
     console.log(guarnicao);
   }
 
-  //AO ALTERAR STATE DA LANCAMENTO
-  function handleChangeLancamento(e) {
+  //AO ALTERAR STATE DA CONTROLE GURANICAO
+  function handleChangeControleGuarnicao(e) {
     const { value, name } = e.target;
-    setLancamento({ ...lancamento, [name]: value });
-    console.log(lancamento);
+    setControleGuarnicao({ ...controleGuarnicao, [name]: value });
   }
 
   //AO ALTERAR STATE DA VTR
-  function handleChangeviatura(e) {
+  function handleChangeViatura(e) {
     const { value, name } = e.target;
-    setViatura({ ...viatura, [name]: value });
+    setViatura({ ...viatura, [name]: value }); 
+  }
+
+  //AO ALTERAR STATE DO CONTROLE DE VIATURA
+  function handleChangeControleViatura(e) {
+    const { value, name } = e.target;
+    setControleViatura({ ...controleViatura, [name]: value });
   }
 
   //AO ALTERAR STATE DO COMPONETE DA VTR
   function handleChangevCompVtr(e) {
-    const { value, name } = e.target;
-    setComponenteVtr({ ...componenteVtr, [name]: value });
+    const {label, value, name } = e.target;
+    if(name==='nomeFuncional'){
+      setComponenteVtr({ ...componenteVtr, nomeFuncional: label, bm:value });
+    }else{
+      setComponenteVtr({ ...componenteVtr, [name]:value });
+    }
+    e =null
   }
   //AO ADICIONAR COMPONETE A VIATURA
   function addComponenteAViatura() {
-    const componenteExploded = [...viatura.componetes, componenteVtr];
-    setViatura({ ...viatura, componetes: componenteExploded });
-    setComponenteVtr({});
+    const componenteExploded = [...controleViatura.componentes, componenteVtr];
+    setControleViatura({ ...controleViatura, componentes: componenteExploded });
+    
+   // setComponenteVtr({});
+    
   }
   //  AO ADICIONAR UMA VIATURA A GUARNICAO
   function addViaturaAguarnicao() {
-    const viaturaExploded = [ ...guarnicao.viaturas, viatura ]
-    setGuarnicao({ ...guarnicao , viaturas:viaturaExploded})
-  }
+    const controleGuarnicaoExplod = [...controleGuarnicao.controleViatura, controleViatura];
+    setControleGuarnicao({ ...controleGuarnicao, controleViatura: controleGuarnicaoExplod });
+    setControleViatura({componentes:[], viatura:{}, hodInicial:0,hodFinal:0})
+    }
+
+  //Quando a viatura for alterada
+  useEffect(() => {
+    setControleViatura({...controleViatura, viatura:viatura})
+  }, [viatura]);
+
 
   useEffect(() => {
-    console.log(guarnicao)
-  }, [guarnicao]);
+    //const controleGuarnicaoExplod = [...controleGuarnicao.controleViatura,controleViatura]
+    //setControleGuarnicao({...controleGuarnicao, controleViatura:controleGuarnicaoExplod})
+    console.log(controleViatura) 
+  }, [controleViatura]);
+
+
+  useEffect(() => {
+   console.log(controleGuarnicao) 
+  }, [controleGuarnicao]);
+
+
+  //TRATAMENTO DO SELECT QUE BUSCAM DADOS DA API
+  const loadGuarnicaoOptions = (input, callback) => {
+    return fetch(`http://localhost:8080/guarnicao?codigo=${input}`)
+      .then((res) => res.json())
+      .then((data) => {
+        callback(data.map((x) => ({ label: x.codigo, value: x.codigo })));
+      });
+  };
+
+  const loadViaturaOptions = (input, callback) => {
+    return fetch(`http://localhost:8080/viatura?placa=${input}`)
+      .then((res) => res.json())
+      .then((data) => {
+        callback(data.map((x) => ({ label: x.placa, value: x.placa })));
+      });
+  };
+
+  
+  const loadComponenteVtrOptions = (input, callback) => {
+    return fetch(`http://localhost:8080/guarda?nome_funcional=${input}`)
+      .then((res) => res.json())
+      .then((data) => {
+        callback(data.map((x) => ({ label: x.nomeFuncional, value: x.bm })));
+      });
+  };
+
+ 
 
   return (
     <div>
+    
       <div className="card-body" style={{ paddingTop: 0, paddingBottom: 0 }}>
         <div className="row">
+
+        {'>>>>>>>'+ teste}
           <div className="col-md-2">
             <label for="data_doc" className="control-label">
               Data do Lancamento
@@ -66,7 +133,7 @@ function LancamentoNovo() {
               className="form-control"
               name="dataLancamento"
               type="date"
-              onChange={handleChangeLancamento}
+              onChange={handleChangeControleGuarnicao}
             />
           </div>
 
@@ -74,17 +141,20 @@ function LancamentoNovo() {
             <label for="data_doc" className="control-label">
               Guarnição
             </label>
-            <input
-              id="data_doc"
-              className="form-control"
-              name="codigo"
-              type="text"
-              onChange={handleChangeGuarnicao}
+            <AsyncSelect //********************** */
+              cacheOptions
+              defaultOptions
+              loadOptions={loadGuarnicaoOptions}
+              onChange={(val) => {
+                handleChangeControleGuarnicao({
+                  target: { name: "guarnicao", value: val.value },
+                });
+              }}
             />
           </div>
         </div>
 
-        <ViewViatura viatura={viatura} />
+        <ViewViatura controleViatura={controleViatura} />
       </div>
       <div id="accordion" style={{ marginTop: "10px" }}>
         <div class="card" style={{ marginTop: "10px" }}>
@@ -114,13 +184,15 @@ function LancamentoNovo() {
                   <label for="data_doc" className="control-label">
                     Placa da viatura
                   </label>
-                  <input
-                    id="data_doc"
-                    type="text"
-                    className="form-control"
-                    name="placa"
-                    value={viatura.placa || ""}
-                    onChange={handleChangeviatura}
+                  <AsyncSelect //********************** */
+                    cacheOptions
+                    defaultOptions
+                    loadOptions={loadViaturaOptions}
+                    onChange={(val) => {
+                      handleChangeViatura({
+                        target: { name: "placa", value: val.value },
+                      });
+                    }}
                   />
                 </div>
 
@@ -134,8 +206,8 @@ function LancamentoNovo() {
                     name="dataDocumento"
                     type="text"
                     name="hodInicial"
-                    value={viatura.hodInicial || ""}
-                    onChange={handleChangeviatura}
+                    value={controleViatura.hodInicial || ""}
+                    onChange={handleChangeControleViatura}
                   />
                 </div>
                 <div className="col-md-2">
@@ -148,8 +220,8 @@ function LancamentoNovo() {
                     name="dataDocumento"
                     type="text"
                     name="hodFinal"
-                    value={viatura.hodFinal || ""}
-                    onChange={handleChangeviatura}
+                    value={controleViatura.hodFinal || ""}
+                    onChange={handleChangeControleViatura}
                   />
                 </div>
               </div>
@@ -158,13 +230,15 @@ function LancamentoNovo() {
                   <label for="data_doc" className="control-label">
                     Componente da VTR (Nome Funcional)
                   </label>
-                  <input
-                    id="data_doc"
-                    className="form-control"
-                    type="text"
-                    name="nome"
-                    value={componenteVtr.nome || ""}
-                    onChange={handleChangevCompVtr}
+                  <AsyncSelect //********************** */
+                    defaultOptions
+                    onChange={(val) => {
+                      handleChangevCompVtr({
+                        target: { name: "nomeFuncional", value: val.value, label:val.label },
+                      });
+                    }}
+                    loadOptions={loadComponenteVtrOptions}
+                    
                   />
                 </div>
 

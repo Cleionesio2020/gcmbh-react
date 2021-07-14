@@ -6,7 +6,6 @@
     background-color: rgb(67, 133, 172, 0.1);
     position: relative;
     width: 100%;
-    z-index: 1000;
 }
 
 .btn-content{
